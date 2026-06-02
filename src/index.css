@@ -1,0 +1,21 @@
+/* ============================================================
+   Tailwind CSS v4 Import
+   --------------------------------------------------------
+   In Tailwind v4, we use the @import directive instead of
+   the old @tailwind base/components/utilities directives.
+   All utility classes are now generated on-demand.
+   ============================================================ */
+@import "tailwindcss";
+
+/* ============================================================
+   Global Base Styles
+   --------------------------------------------------------
+   These styles ensure the full-height layout works correctly
+   for the embedded Metabase dashboard iframe.
+   ============================================================ */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
