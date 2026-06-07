@@ -37,16 +37,22 @@ app.use(express.json())
 
 app.get('/api/metabase/embed-url', (req, res) => {
   try {
+    // 1. Tangkap parameter location dari frontend
+    const { location } = req.query;
+
     const payload = {
       resource: { dashboard: parseInt(DASHBOARD_ID, 10) },
-      params: {},
+      params: {
+        // 2. Masukkan parameter ke payload jika 'location' dikirimkan oleh frontend
+        ...(location && { location: [location] })
+      },
       exp: Math.floor(Date.now() / 1000) + (10 * 60),
     }
 
     const token = jwt.sign(payload, METABASE_SECRET_KEY, { algorithm: 'HS256' })
     const iframeUrl = `${METABASE_SITE_URL}/embed/dashboard/${token}`
 
-    console.log(`Embed URL generated for dashboard ${DASHBOARD_ID}`)
+    console.log(`Embed URL generated for dashboard ${DASHBOARD_ID} | Location Filter: ${location || 'None'}`)
     res.json({ iframeUrl })
   } catch (err) {
     console.error('Error:', err)

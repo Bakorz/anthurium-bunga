@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react'
 import { getApiUrl } from '../utils/api'
 import MetabaseDashboard from '../components/MetabaseDashboard'
 
+import SmartAlert from '../components/SmartAlert'
+import { useReactToPrint } from 'react-to-print'
+
 // ============================================================
 // MapDashboard Page (src/pages/MapDashboard.jsx)
 // --------------------------------------------------------
@@ -40,6 +43,10 @@ export default function MapDashboard() {
   const [embedUrl, setEmbedUrl] = useState(null)
   const [error, setError] = useState(null)
   const [isFetching, setIsFetching] = useState(true)
+
+  const [dataTren, setDataTren] = useState(-2.1)
+  const [dataTotal, setDataTotal] = useState(8400)
+
 
   // ----------------------------------------------------------
   // EFFECT: Fetch Embedding URL on Mount
@@ -129,6 +136,9 @@ export default function MapDashboard() {
       {/* Dashboard Content */}
       <div className="flex-1 px-4 sm:px-6 lg:px-8 py-6">
         <div className="max-w-7xl mx-auto">
+          <div className="mb-6">
+            <SmartAlert trenPertumbuhan={dataTren} totalPanen={dataTotal} />
+          </div>
           {isFetching ? (
             <div className="flex items-center justify-center min-h-[85vh]">
               <div className="text-center">
